@@ -14,12 +14,14 @@ import { Flex, Box } from "reflexbox";
 import { Redirect } from "react-router-dom";
 import AppToaster from '../utils/AppToaster';
 import {userDetails} from '../utils/loginDetails';
+import {userIcon} from '../utils/IconsComponent';
 
 const LoginForm: FunctionComponent = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [isSignUp, setSignUp] = useState<boolean>(false);
+  const [isForgotPassword, setForgotPassword] = useState<boolean>(false);
   const [isInvalidPassword, setIsInvalidPassword] = useState<boolean>(false);
   const [isInvalidUsername, setIsInvalidUsername] = useState<boolean>(false);
   const [isInvalidLoginInfo, setIsInvalidLoginInfo] = useState<boolean>(false);
@@ -34,12 +36,6 @@ const LoginForm: FunctionComponent = () => {
         minimal={true}
         onClick={handleLockClick}
       />
-    </Tooltip>
-  );
-
-  const userIcon = (
-    <Tooltip content={"Enter a username or email address"}>
-      <Button icon={"user"} intent={Intent.WARNING} minimal={true} />
     </Tooltip>
   );
 
@@ -68,6 +64,9 @@ const LoginForm: FunctionComponent = () => {
 
   if (isSignUp) {
     return <Redirect push to="/signup" />;
+  }
+  if (isForgotPassword) {
+    return <Redirect push to="/forgot" />;
   }
   return (
     <div className="container">
@@ -100,13 +99,13 @@ const LoginForm: FunctionComponent = () => {
                 <Button intent={Intent.PRIMARY} onClick={handleLogin}>Login</Button>
               </FormGroup>
               <Flex flexWrap="wrap">
-                <Box width={[1, 1 / 2]} p={3}>
+                <Box width={[1, 1 / 2]} p={2}>
                   <Button intent={Intent.PRIMARY} onClick={handleSignUp}>
                     Sign up
                   </Button>
                 </Box>
-                <Box width={[1, 1 / 2]} p={2}>
-                  <Button minimal>Forgot your password?</Button>
+                <Box width={[1, 1/2]} p={2}>
+                  <Button minimal onClick={() => setForgotPassword(true)}>Forgot your password?</Button>
                 </Box>
               </Flex>
             </div>

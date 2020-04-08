@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import NavbarComponent from "./Navbar/NavbarComponent";
 import LoginForm from "./Login/LoginForm";

@@ -13,6 +13,9 @@ import {
 import { Flex, Box } from "reflexbox";
 import { trimStart } from "lodash";
 import { formatPhoneNumber, isValidEmail } from "../utils/util";
+import {Redirect} from 'react-router';
+import {emailIcon, phoneIcon, userIcon} from '../utils/IconsComponent';
+import AppToaster from '../utils/AppToaster';
 
 const SignUp: FunctionComponent = () => {
   const [username, setUsername] = useState<string>("");
@@ -39,24 +42,6 @@ const SignUp: FunctionComponent = () => {
     </Tooltip>
   );
 
-  const userIcon = (
-    <Tooltip content={"Enter a username"}>
-      <Button icon={"user"} intent={Intent.WARNING} minimal={true} />
-    </Tooltip>
-  );
-
-  const emailIcon = (
-    <Tooltip content={"Enter an email address"}>
-      <Button icon={"envelope"} intent={Intent.WARNING} minimal={true} />
-    </Tooltip>
-  );
-
-  const phoneIcon = (
-    <Tooltip content={"Enter a valid phone number"}>
-      <Button icon={"phone"} intent={Intent.WARNING} minimal={true} />
-    </Tooltip>
-  );
-
   const handleSignUp = () => {
     if(!username) {
       setIsInvalidUsername(true)
@@ -69,6 +54,7 @@ const SignUp: FunctionComponent = () => {
       setIsInvalidPassword(false);
     }
     if(!isValidEmail(email)) {
+      AppToaster.show({message: 'Enter a valid email address'})
       setIsInvalidEmail(true)
     } else {
       setIsInvalidEmail(false)
@@ -81,6 +67,7 @@ const SignUp: FunctionComponent = () => {
   };
 
   if (isSignUp) {
+    return <Redirect to='/' />
   }
   return (
     <div className="container">
@@ -88,7 +75,7 @@ const SignUp: FunctionComponent = () => {
         <div className="col-lg-5">
           <Card interactive={true} elevation={Elevation.TWO}>
             <div className="p-4 position-relative">
-              <FormGroup label="Username">
+              <FormGroup label="Username" labelInfo="(required)">
                 <InputGroup
                   placeholder="Username"
                   intent={isInvalidUsername ? Intent.DANGER : Intent.PRIMARY}
@@ -98,7 +85,7 @@ const SignUp: FunctionComponent = () => {
                   onChange={(e: any) => setUsername(e.currentTarget.value)}
                 />
               </FormGroup>
-              <FormGroup label="Password">
+              <FormGroup label="Password"  labelInfo="(required)">
                 <InputGroup
                   placeholder="Enter your password..."
                   rightElement={lockButton}
@@ -109,7 +96,7 @@ const SignUp: FunctionComponent = () => {
                   onChange={(e: any) => setPassword(e.currentTarget.value)}
                 />
               </FormGroup>
-              <FormGroup label="Confirm Password">
+              <FormGroup label="Confirm Password"  labelInfo="(required)">
                 <InputGroup
                   placeholder="Confirm your password..."
                   rightElement={lockButton}
@@ -122,7 +109,7 @@ const SignUp: FunctionComponent = () => {
                   }
                 />
               </FormGroup>
-              <FormGroup label="Email">
+              <FormGroup label="Email"  labelInfo="(required)">
                 <InputGroup
                   placeholder="Email"
                   intent={isInvalidEmail ? Intent.DANGER : Intent.PRIMARY}
