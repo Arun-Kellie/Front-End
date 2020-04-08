@@ -7,12 +7,13 @@ import {
   Tooltip,
   Button,
   Card,
-  Elevation
-} from "@blueprintjs/core";
+  Elevation, Callout
+} from '@blueprintjs/core';
 
 import { Flex, Box } from "reflexbox";
 import { Redirect } from "react-router-dom";
 import AppToaster from '../utils/AppToaster';
+import {userDetails} from '../utils/loginDetails';
 
 const LoginForm: FunctionComponent = () => {
   const [username, setUsername] = useState<string>("");
@@ -21,6 +22,7 @@ const LoginForm: FunctionComponent = () => {
   const [isSignUp, setSignUp] = useState<boolean>(false);
   const [isInvalidPassword, setIsInvalidPassword] = useState<boolean>(false);
   const [isInvalidUsername, setIsInvalidUsername] = useState<boolean>(false);
+  const [isInvalidLoginInfo, setIsInvalidLoginInfo] = useState<boolean>(false);
 
   const handleLockClick = () => setShowPassword(!showPassword);
 
@@ -56,8 +58,11 @@ const LoginForm: FunctionComponent = () => {
     } else {
       setIsInvalidPassword(false)
     }
-    if (username && password) {
+    if (username === userDetails.name && password === userDetails.password) {
       AppToaster.show({message: 'User logged in.'})
+      setIsInvalidLoginInfo(false)
+    } else {
+      setIsInvalidLoginInfo(true)
     }
   };
 
@@ -70,6 +75,7 @@ const LoginForm: FunctionComponent = () => {
         <div className="col-lg-5">
           <Card interactive={true} elevation={Elevation.TWO}>
             <div className="p-4 position-relative">
+              {isInvalidLoginInfo && <Callout intent={Intent.DANGER}>Username or password is incorrect.</Callout>}
               <FormGroup label="Username/Email">
                 <InputGroup
                   intent={isInvalidUsername ? Intent.DANGER : Intent.PRIMARY}
