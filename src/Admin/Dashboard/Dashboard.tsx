@@ -2,7 +2,9 @@ import React, { FunctionComponent } from "react";
 import { Card, Elevation, H5 } from "@blueprintjs/core";
 import NavbarComponent from "../../Navbar/NavbarComponent";
 import BootstrapTable from "react-bootstrap-table-next";
-import { PieChart, Pie, Sector, Cell } from "recharts";
+import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
+import { PieChart, Pie, Cell } from "recharts";
+import {chartColors, RADIAN} from '../../utils/util';
 
 const data = [
   { name: "Group A", value: 400 },
@@ -10,12 +12,6 @@ const data = [
   { name: "Group C", value: 300 },
   { name: "Group D", value: 200 }
 ];
-
-const chartColors = ["#7cb5ec", "#434348", "#90ed7d", "#f7a35c", "#8085e9", "#f15c80", "#e4d354", "#2b908f", "#f45b5b", "#91e8e1"];
-
-const RADIAN = Math.PI / 180;
-
-// @ts-ignore
 
 const colors = [
   {
@@ -58,23 +54,23 @@ const colors = [
 const columns = [
   {
     dataField: "color",
-    text: "Color"
+    text: "Color",
+    filter: textFilter()
   },
   {
     dataField: "value",
-    text: "Color Value"
+    text: "Color Value",
+    filter: textFilter()
   }
 ];
 
 const AdminDashboard: FunctionComponent = () => {
-  // @ts-ignore
   const renderCustomizedLabel = ({
     cx,
     cy,
     midAngle,
     innerRadius,
     outerRadius,
-    percent,
       index
   }: any) => {
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
@@ -116,7 +112,7 @@ const AdminDashboard: FunctionComponent = () => {
       </div>
       <div className="no-gutters row">
         <div className="col-xxl-3 mb-3 pr-md-2 col-md-8">
-          <BootstrapTable keyField="id" data={colors} columns={columns} />
+          <BootstrapTable keyField="id" data={colors} columns={columns} filter={ filterFactory() } />
         </div>
         <div className="col-xxl-3 mb-3 pr-md-2 col-md-4">
           <H5 className="pb-0 card-header">Files</H5>
