@@ -93,54 +93,56 @@ const AdminDashboard: FunctionComponent = () => {
   return (
     <>
       <NavbarComponent />
-      <div className="no-gutters row">
-        <div className="col-xxl-3 mb-3 pr-md-2 col-md-4">
-          <Card elevation={Elevation.TWO}>
-            <H5 className="pb-0 card-header">Active Users</H5>
-          </Card>
+      <div className="container">
+        <div className="no-gutters row">
+          <div className="col-xxl-3 mb-3 pr-md-2 col-md-4">
+            <Card elevation={Elevation.TWO}>
+              <H5 className="pb-0 card-header">Active Users</H5>
+            </Card>
+          </div>
+          <div className="col-xxl-3 mb-3 pr-md-2 col-md-4">
+            <Card elevation={Elevation.TWO}>
+              <H5 className="pb-0 card-header">Pending Users</H5>
+            </Card>
+          </div>
+          <div className="col-xxl-3 mb-3 pr-md-2 col-md-4">
+            <Card elevation={Elevation.TWO}>
+              <H5 className="pb-0 card-header">Deactivated Users</H5>
+            </Card>
+          </div>
         </div>
-        <div className="col-xxl-3 mb-3 pr-md-2 col-md-4">
-          <Card elevation={Elevation.TWO}>
-            <H5 className="pb-0 card-header">Pending Users</H5>
-          </Card>
-        </div>
-        <div className="col-xxl-3 mb-3 pr-md-2 col-md-4">
-          <Card elevation={Elevation.TWO}>
-            <H5 className="pb-0 card-header">Deactivated Users</H5>
-          </Card>
-        </div>
-      </div>
-      <div className="no-gutters row">
-        <div className="col-xxl-3 mb-3 pr-md-2 col-md-8">
-          <BootstrapTable
-            keyField="id"
-            data={colors}
-            columns={columns}
-            filter={filterFactory()}
-            filterPosition="top"
-          />
-        </div>
-        <div className="col-xxl-3 mb-3 pr-md-2 col-md-4">
-          <H5 className="pb-0 card-header">Files</H5>
-          <PieChart width={200} height={200}>
-            <Pie
-              data={data}
-              cx={100}
-              cy={100}
-              labelLine={false}
-              label={renderCustomizedLabel}
-              outerRadius={80}
-              fill="#8884d8"
-              dataKey="value"
-            >
-              {data.map((entry, index) => (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={chartColors[index % chartColors.length]}
-                />
-              ))}
-            </Pie>
-          </PieChart>
+        <div className="no-gutters row">
+          <div className="col-xxl-3 mb-3 pr-md-2 col-md-8">
+            <BootstrapTable
+              keyField="id"
+              data={colors}
+              columns={columns}
+              filter={filterFactory()}
+              filterPosition="top"
+            />
+          </div>
+          <div className="col-xxl-3 mb-3 pr-md-2 col-md-4">
+            <H5 className="pb-0 card-header">Files</H5>
+            <PieChart width={200} height={200}>
+              <Pie
+                data={data}
+                cx={100}
+                cy={100}
+                labelLine={false}
+                label={renderCustomizedLabel}
+                outerRadius={80}
+                fill="#8884d8"
+                dataKey="value"
+              >
+                {data.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={chartColors[index % chartColors.length]}
+                  />
+                ))}
+              </Pie>
+            </PieChart>
+          </div>
         </div>
       </div>
     </>
