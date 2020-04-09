@@ -2,9 +2,9 @@ import React, { FunctionComponent } from "react";
 import { Card, Elevation, H5 } from "@blueprintjs/core";
 import NavbarComponent from "../../Navbar/NavbarComponent";
 import BootstrapTable from "react-bootstrap-table-next";
-import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
+import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import { PieChart, Pie, Cell } from "recharts";
-import {chartColors, RADIAN} from '../../utils/util';
+import { chartColors, RADIAN } from "../../utils/util";
 
 const data = [
   { name: "Group A", value: 400 },
@@ -71,7 +71,7 @@ const AdminDashboard: FunctionComponent = () => {
     midAngle,
     innerRadius,
     outerRadius,
-      index
+    index
   }: any) => {
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
     const x = cx + radius * Math.cos(-midAngle * RADIAN) * 0.75;
@@ -112,7 +112,13 @@ const AdminDashboard: FunctionComponent = () => {
       </div>
       <div className="no-gutters row">
         <div className="col-xxl-3 mb-3 pr-md-2 col-md-8">
-          <BootstrapTable keyField="id" data={colors} columns={columns} filter={ filterFactory() } />
+          <BootstrapTable
+            keyField="id"
+            data={colors}
+            columns={columns}
+            filter={filterFactory()}
+            filterPosition="top"
+          />
         </div>
         <div className="col-xxl-3 mb-3 pr-md-2 col-md-4">
           <H5 className="pb-0 card-header">Files</H5>

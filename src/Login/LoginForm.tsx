@@ -10,9 +10,7 @@ import {
   Elevation, Callout
 } from '@blueprintjs/core';
 
-import { Flex, Box } from "reflexbox";
 import { Redirect } from "react-router-dom";
-import AppToaster from '../utils/AppToaster';
 import {userDetails} from '../utils/loginDetails';
 import {userIcon} from '../utils/IconsComponent';
 
@@ -102,16 +100,16 @@ const LoginForm: FunctionComponent = () => {
               <FormGroup>
                 <Button intent={Intent.PRIMARY} onClick={handleLogin}>Login</Button>
               </FormGroup>
-              <Flex flexWrap="wrap">
-                <Box width={[1, 1 / 2]} p={2}>
+              <div className="row">
+             <div className="col">
                   <Button intent={Intent.PRIMARY} onClick={handleSignUp}>
                     Sign up
                   </Button>
-                </Box>
-                <Box width={[1, 1/2]} p={2}>
+                </div>
+                <div className="col">
                   <Button minimal onClick={() => setForgotPassword(true)}>Forgot your password?</Button>
-                </Box>
-              </Flex>
+                </div>
+              </div>
             </div>
           </Card>
         </div>

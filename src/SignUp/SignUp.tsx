@@ -10,7 +10,6 @@ import {
   Elevation
 } from "@blueprintjs/core";
 
-import { Flex, Box } from "reflexbox";
 import { trimStart } from "lodash";
 import { formatPhoneNumber, isValidEmail } from "../utils/util";
 import {Redirect} from 'react-router';
@@ -129,16 +128,16 @@ const SignUp: FunctionComponent = () => {
                   onChange={handlePhoneNumber}
                 />
               </FormGroup>
-              <Flex flexWrap="wrap">
-                <Box width={[1, 1 / 2]} p={3}>
+              <div className='row'>
+                <div className='col'>
                   <Button onClick={() => setSignUp(true)}>Cancel</Button>
-                </Box>
-                <Box width={[1, 1 / 2]} p={3}>
-                  <Button intent={Intent.PRIMARY} onClick={handleSignUp}>
+                </div>
+                <div className='col'>
+                  <Button className='float-right' intent={Intent.PRIMARY} onClick={handleSignUp}>
                     Register
                   </Button>
-                </Box>
-              </Flex>
+                </div>
+              </div>
             </div>
           </Card>
         </div>
