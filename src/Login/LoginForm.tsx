@@ -21,6 +21,7 @@ const LoginForm: FunctionComponent = () => {
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [isSignUp, setSignUp] = useState<boolean>(false);
+  const [isLoggedin, setLoggedIn] = useState<boolean>(false);
   const [isForgotPassword, setForgotPassword] = useState<boolean>(false);
   const [isInvalidPassword, setIsInvalidPassword] = useState<boolean>(false);
   const [isInvalidUsername, setIsInvalidUsername] = useState<boolean>(false);
@@ -55,7 +56,7 @@ const LoginForm: FunctionComponent = () => {
       setIsInvalidPassword(false)
     }
     if (username === userDetails.name && password === userDetails.password) {
-      AppToaster.show({message: 'User logged in.'})
+      setLoggedIn(true);
       setIsInvalidLoginInfo(false)
     } else {
       setIsInvalidLoginInfo(true)
@@ -68,11 +69,14 @@ const LoginForm: FunctionComponent = () => {
   if (isForgotPassword) {
     return <Redirect push to="/forgot" />;
   }
+  if(isLoggedin) {
+    return <Redirect push to='/admin' />
+  }
   return (
     <div className="container">
       <div className="justify-content-center row">
         <div className="col-lg-5">
-          <Card interactive={true} elevation={Elevation.TWO}>
+          <Card elevation={Elevation.TWO}>
             <div className="p-4 position-relative">
               {isInvalidLoginInfo && <Callout intent={Intent.DANGER}>Username or password is incorrect.</Callout>}
               <FormGroup label="Username/Email">

@@ -5,7 +5,7 @@ export const formatPhoneNumber = (number: string) => {
     return replace(
       replace(number.toString(), /\D+/g, ""),
       /(\d{2})(\d{6})/,
-      "($1) $2"
+      "$1 $2"
     );
   }
   return "";

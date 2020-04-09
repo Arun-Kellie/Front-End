@@ -25,7 +25,7 @@ const ForgotPassword: FunctionComponent = () => {
 		<div className="container">
 			<div className="justify-content-center row">
 				<div className="col-lg-5">
-					<Card interactive={true} elevation={Elevation.TWO}>
+					<Card elevation={Elevation.TWO}>
 						<div className="p-4 position-relative">
 							<H4>Forgot your password?</H4>
 							<p>If you have forgotten your password, please enter your account's username or email address below and click the "Reset my password" button. You will receive a link in your registered email address to reset your password.</p>

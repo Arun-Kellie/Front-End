@@ -63,7 +63,7 @@ const SignUp: FunctionComponent = () => {
 
   const handlePhoneNumber = (e: any) => {
     const value = e.currentTarget.value;
-    setPhone(trimStart(formatPhoneNumber(value).slice(0, 11)));
+      setPhone(trimStart(formatPhoneNumber(value).slice(0, 10)));
   };
 
   if (isSignUp) {
@@ -73,7 +73,7 @@ const SignUp: FunctionComponent = () => {
     <div className="container">
       <div className="justify-content-center row">
         <div className="col-lg-5">
-          <Card interactive={true} elevation={Elevation.TWO}>
+          <Card elevation={Elevation.TWO}>
             <div className="p-4 position-relative">
               <FormGroup label="Username" labelInfo="(required)">
                 <InputGroup
