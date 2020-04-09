@@ -40,7 +40,7 @@ const ForgotPassword: FunctionComponent = () => {
           <Card elevation={Elevation.TWO}>
             <div className="p-4 position-relative">
               <H4>Forgot your password?</H4>
-              <p className='text-justify'>
+              <p className="text-justify">
                 If you have forgotten your password, please enter your account's
                 username or email address below and click the "Reset my
                 password" button. You will receive a link in your registered
@@ -65,7 +65,11 @@ const ForgotPassword: FunctionComponent = () => {
                   </Button>
                 </div>
                 <div className="col">
-                  <Button intent={Intent.PRIMARY} className='float-right' onClick={handleReset}>
+                  <Button
+                    intent={Intent.PRIMARY}
+                    className="float-right"
+                    onClick={handleReset}
+                  >
                     Reset my password
                   </Button>
                 </div>

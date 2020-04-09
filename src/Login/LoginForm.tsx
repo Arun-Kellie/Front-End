@@ -7,12 +7,13 @@ import {
   Tooltip,
   Button,
   Card,
-  Elevation, Callout
-} from '@blueprintjs/core';
+  Elevation,
+  Callout
+} from "@blueprintjs/core";
 
 import { Redirect } from "react-router-dom";
-import {userDetails} from '../utils/loginDetails';
-import {userIcon} from '../utils/IconsComponent';
+import { userDetails } from "../utils/loginDetails";
+import { userIcon } from "../utils/IconsComponent";
 
 const LoginForm: FunctionComponent = () => {
   const [username, setUsername] = useState<string>("");
@@ -39,25 +40,25 @@ const LoginForm: FunctionComponent = () => {
   );
 
   const handleSignUp = () => {
-      setSignUp(true);
+    setSignUp(true);
   };
 
   const handleLogin = () => {
-    if(!username) {
-      setIsInvalidUsername(true)
+    if (!username) {
+      setIsInvalidUsername(true);
     } else {
-      setIsInvalidUsername(false)
+      setIsInvalidUsername(false);
     }
-    if(!password) {
-      setIsInvalidPassword(true)
+    if (!password) {
+      setIsInvalidPassword(true);
     } else {
-      setIsInvalidPassword(false)
+      setIsInvalidPassword(false);
     }
     if (username === userDetails.name && password === userDetails.password) {
       setLoggedIn(true);
-      setIsInvalidLoginInfo(false)
+      setIsInvalidLoginInfo(false);
     } else {
-      setIsInvalidLoginInfo(true)
+      setIsInvalidLoginInfo(true);
     }
   };
 
@@ -67,8 +68,8 @@ const LoginForm: FunctionComponent = () => {
   if (isForgotPassword) {
     return <Redirect push to="/forgot" />;
   }
-  if(isLoggedin) {
-    return <Redirect push to='/admin' />
+  if (isLoggedin) {
+    return <Redirect push to="/admin" />;
   }
   return (
     <div className="container">
@@ -76,7 +77,11 @@ const LoginForm: FunctionComponent = () => {
         <div className="col-lg-5">
           <Card elevation={Elevation.TWO}>
             <div className="p-4 position-relative">
-              {isInvalidLoginInfo && <Callout intent={Intent.DANGER}>Username or password is incorrect.</Callout>}
+              {isInvalidLoginInfo && (
+                <Callout intent={Intent.DANGER}>
+                  Username or password is incorrect.
+                </Callout>
+              )}
               <FormGroup label="Username/Email">
                 <InputGroup
                   intent={isInvalidUsername ? Intent.DANGER : Intent.PRIMARY}
@@ -98,16 +103,20 @@ const LoginForm: FunctionComponent = () => {
                 />
               </FormGroup>
               <FormGroup>
-                <Button intent={Intent.PRIMARY} onClick={handleLogin}>Login</Button>
+                <Button intent={Intent.PRIMARY} onClick={handleLogin}>
+                  Login
+                </Button>
               </FormGroup>
               <div className="row">
-             <div className="col">
+                <div className="col">
                   <Button intent={Intent.PRIMARY} onClick={handleSignUp}>
                     Sign up
                   </Button>
                 </div>
                 <div className="col">
-                  <Button minimal onClick={() => setForgotPassword(true)}>Forgot your password?</Button>
+                  <Button minimal onClick={() => setForgotPassword(true)}>
+                    Forgot your password?
+                  </Button>
                 </div>
               </div>
             </div>

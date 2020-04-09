@@ -1,8 +1,19 @@
 import { replace, toLower } from "lodash";
 
-export const chartColors:Array<string> = ["#7cb5ec", "#434348", "#90ed7d", "#f7a35c", "#8085e9", "#f15c80", "#e4d354", "#2b908f", "#f45b5b", "#91e8e1"];
+export const chartColors: Array<string> = [
+  "#7cb5ec",
+  "#434348",
+  "#90ed7d",
+  "#f7a35c",
+  "#8085e9",
+  "#f15c80",
+  "#e4d354",
+  "#2b908f",
+  "#f45b5b",
+  "#91e8e1"
+];
 
-export const RADIAN:number = Math.PI / 180;
+export const RADIAN: number = Math.PI / 180;
 
 export const formatPhoneNumber = (number: string) => {
   if (number) {
