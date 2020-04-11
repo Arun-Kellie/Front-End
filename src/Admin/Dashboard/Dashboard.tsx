@@ -83,7 +83,7 @@ const AdminDashboard: FunctionComponent = () => {
       <div className="container-fluid page-content fade-in-up">
           <div className="row">
             {map(dashboardConstants.cardNames, cardName => (
-                <div key={uniqueId()} className="col-12 col-sm-6 col-lg-3 mb-4">
+                <div key={uniqueId()} className="col-12 col-sm-6 col-lg-4 mb-4">
                   <Card elevation={Elevation.TWO}>
                     <H5 className="pb-0 card-header">{cardName}</H5>
                   </Card>
