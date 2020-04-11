@@ -3,13 +3,13 @@ import ReactDOM from "react-dom";
 import { FocusStyleManager } from "@blueprintjs/core";
 import "./index.scss";
 import * as serviceWorker from "./serviceWorker";
-import Routes from "./Routes";
+import App from './App';
 
 FocusStyleManager.onlyShowFocusOnTabs();
 
 ReactDOM.render(
   <React.StrictMode>
-    <Routes />
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 );

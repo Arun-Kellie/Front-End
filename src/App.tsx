@@ -1,12 +1,12 @@
 import React from "react";
-import "./App.css";
-import LoginForm from "./Login/LoginForm";
+import "./App.scss";
+import Routes from './Routes';
 
 function App() {
   return (
-    <div className="App">
-      <LoginForm />
-    </div>
+      <main className="main">
+          <Routes />
+      </main>
   );
 }
 

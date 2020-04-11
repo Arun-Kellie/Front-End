@@ -13,8 +13,6 @@ export const chartColors: Array<string> = [
   "#91e8e1"
 ];
 
-export const RADIAN: number = Math.PI / 180;
-
 export const formatPhoneNumber = (number: string) => {
   if (number) {
     return replace(
@@ -34,3 +32,12 @@ export const isValidEmail = (email: string) => {
   }
   return false;
 };
+
+export const chartOptions = {
+  responsive: true,
+  plugins: {
+    datalabels: {
+      color: 'white'
+    }
+  }
+}

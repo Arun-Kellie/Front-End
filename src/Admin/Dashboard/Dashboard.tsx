@@ -3,15 +3,11 @@ import { Card, Elevation, H5 } from "@blueprintjs/core";
 import NavbarComponent from "../../Navbar/NavbarComponent";
 import BootstrapTable from "react-bootstrap-table-next";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
-import { PieChart, Pie, Cell } from "recharts";
-import { chartColors, RADIAN } from "../../utils/util";
-
-const data = [
-  { name: "Group A", value: 400 },
-  { name: "Group B", value: 300 },
-  { name: "Group C", value: 300 },
-  { name: "Group D", value: 200 }
-];
+import 'chartjs-plugin-datalabels';
+import {Pie} from 'react-chartjs-2';
+import {map, uniqueId} from 'lodash';
+import {dashboardConstants} from './dashboardConstants';
+import {chartColors, chartOptions} from '../../utils/util';
 
 const colors = [
   {
@@ -55,95 +51,61 @@ const columns = [
   {
     dataField: "color",
     text: "Color",
-    filter: textFilter()
+    filter: textFilter(),
+    sort: true
   },
   {
     dataField: "value",
     text: "Color Value",
-    filter: textFilter()
+    filter: textFilter(),
+    sort: true
   }
 ];
 
-const AdminDashboard: FunctionComponent = () => {
-  const renderCustomizedLabel = ({
-    cx,
-    cy,
-    midAngle,
-    innerRadius,
-    outerRadius,
-    index
-  }: any) => {
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-    const x = cx + radius * Math.cos(-midAngle * RADIAN) * 0.75;
-    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+const chartData = {
+  labels: [
+    'Department 1',
+    'Department 2',
+    'Department 3'
+  ],
+  datasets: [{
+    data: [300, 50, 100],
+    backgroundColor: chartColors,
+    hoverBackgroundColor: chartColors
+  }]
+};
 
-    return (
-      <text
-        x={x}
-        y={y}
-        fill="white"
-        textAnchor={x > cx ? "start" : "end"}
-        dominantBaseline="central"
-      >
-        {`Dept ${index + 1}`}
-      </text>
-    );
-  };
+const AdminDashboard: FunctionComponent = () => {
 
   return (
     <>
       <NavbarComponent />
-      <div className="container">
-        <div className="no-gutters row">
-          <div className="col-xxl-3 mb-3 pr-md-2 col-md-4">
-            <Card elevation={Elevation.TWO}>
-              <H5 className="pb-0 card-header">Active Users</H5>
-            </Card>
+      <div className="container-fluid page-content fade-in-up">
+          <div className="row">
+            {map(dashboardConstants.cardNames, cardName => (
+                <div key={uniqueId()} className="col-12 col-sm-6 col-lg-3 mb-4">
+                  <Card elevation={Elevation.TWO}>
+                    <H5 className="pb-0 card-header">{cardName}</H5>
+                  </Card>
+                </div>
+            ))}
           </div>
-          <div className="col-xxl-3 mb-3 pr-md-2 col-md-4">
-            <Card elevation={Elevation.TWO}>
-              <H5 className="pb-0 card-header">Pending Users</H5>
-            </Card>
+          <div className="row">
+            <div className="col-12 col-sm-6 col-md-8">
+              <BootstrapTable
+                keyField="id"
+                data={colors}
+                columns={columns}
+                filter={filterFactory()}
+                filterPosition="top"
+              />
+            </div>
+            <div className="col-12 col-sm-6 col-md-4">
+              <H5 className="pb-0 card-header">Files</H5>
+              <Pie data={chartData} options={chartOptions}
+              />
+            </div>
           </div>
-          <div className="col-xxl-3 mb-3 pr-md-2 col-md-4">
-            <Card elevation={Elevation.TWO}>
-              <H5 className="pb-0 card-header">Deactivated Users</H5>
-            </Card>
-          </div>
-        </div>
-        <div className="no-gutters row">
-          <div className="col-xxl-3 mb-3 pr-md-2 col-md-8">
-            <BootstrapTable
-              keyField="id"
-              data={colors}
-              columns={columns}
-              filter={filterFactory()}
-              filterPosition="top"
-            />
-          </div>
-          <div className="col-xxl-3 mb-3 pr-md-2 col-md-4">
-            <H5 className="pb-0 card-header">Files</H5>
-            <PieChart width={200} height={200}>
-              <Pie
-                data={data}
-                cx={100}
-                cy={100}
-                labelLine={false}
-                label={renderCustomizedLabel}
-                outerRadius={80}
-                fill="#8884d8"
-                dataKey="value"
-              >
-                {data.map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={chartColors[index % chartColors.length]}
-                  />
-                ))}
-              </Pie>
-            </PieChart>
-          </div>
-        </div>
       </div>
     </>
   );
