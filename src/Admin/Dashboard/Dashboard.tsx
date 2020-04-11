@@ -7,7 +7,7 @@ import 'chartjs-plugin-datalabels';
 import {Pie} from 'react-chartjs-2';
 import {map, uniqueId} from 'lodash';
 import {dashboardConstants} from './dashboardConstants';
-import {chartColors, chartOptions} from '../../utils/util';
+import {chartColors, chartOptions, lightenDarkenColor} from '../../utils/util';
 
 const colors = [
   {
@@ -66,12 +66,17 @@ const chartData = {
   labels: [
     'Department 1',
     'Department 2',
-    'Department 3'
+    'Department 3',
+    'Department 4',
+    'Department 5',
+    'Department 6',
   ],
   datasets: [{
-    data: [300, 50, 100],
+    data: [300, 50, 100, 250,120,63],
     backgroundColor: chartColors,
-    hoverBackgroundColor: chartColors
+    hoverBackgroundColor: map(chartColors, color => {
+      return lightenDarkenColor(color, -20)
+    })
   }]
 };
 
@@ -91,7 +96,7 @@ const AdminDashboard: FunctionComponent = () => {
             ))}
           </div>
           <div className="row">
-            <div className="col-12 col-sm-6 col-md-8">
+            <div className="col-12 col-sm-6 col-lg-8">
               <BootstrapTable
                 keyField="id"
                 data={colors}
@@ -100,7 +105,7 @@ const AdminDashboard: FunctionComponent = () => {
                 filterPosition="top"
               />
             </div>
-            <div className="col-12 col-sm-6 col-md-4">
+            <div className="col-12 col-sm-6 col-lg-4">
               <H5 className="pb-0 card-header">Files</H5>
               <Pie data={chartData} options={chartOptions}
               />
