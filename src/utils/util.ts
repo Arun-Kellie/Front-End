@@ -33,7 +33,9 @@ export const isValidEmail = (email: string) => {
   return false;
 };
 
-export const chartOptions = {
+type ChartOptions = {responsive: boolean, plugins: {datalabels: {color: string}}}
+
+export const chartOptions:ChartOptions = {
   responsive: true,
   plugins: {
     datalabels: {
