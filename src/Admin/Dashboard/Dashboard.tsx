@@ -3,6 +3,7 @@ import { Card, Elevation, H5 } from "@blueprintjs/core";
 import NavbarComponent from "../../Navbar/NavbarComponent";
 import BootstrapTable from "react-bootstrap-table-next";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
+import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'chartjs-plugin-datalabels';
 import {Pie} from 'react-chartjs-2';
 import {map, uniqueId} from 'lodash';
@@ -80,6 +81,32 @@ const chartData = {
   }]
 };
 
+const paginationOptions = {
+  paginationSize: 5,
+  pageStartIndex: 1,
+  // alwaysShowAllBtns: true, // Always show next and previous button
+  // withFirstAndLast: false, // Hide the going to First and Last page button
+  // hideSizePerPage: true, // Hide the sizePerPage dropdown always
+  // hidePageListOnlyOnePage: true, // Hide the pagination list when only one page
+  firstPageText: 'First',
+  prePageText: 'Back',
+  nextPageText: 'Next',
+  lastPageText: 'Last',
+  nextPageTitle: 'First page',
+  prePageTitle: 'Pre page',
+  firstPageTitle: 'Next page',
+  lastPageTitle: 'Last page',
+  showTotal: true,
+  disablePageTitle: true,
+  sizePerPageList: [{
+    text: '5', value: 5
+  }, {
+    text: '10', value: 10
+  }, {
+    text: 'All', value: colors.length
+  }] // A numeric array is also available. the purpose of above example is custom the text
+};
+
 const AdminDashboard: FunctionComponent = () => {
 
   return (
@@ -98,11 +125,13 @@ const AdminDashboard: FunctionComponent = () => {
           <div className="row">
             <div className="col-12 col-sm-6 col-lg-8">
               <BootstrapTable
+                  bootstrap4
                 keyField="id"
                 data={colors}
                 columns={columns}
                 filter={filterFactory()}
                 filterPosition="top"
+                pagination={ paginationFactory(paginationOptions) }
               />
             </div>
             <div className="col-12 col-sm-6 col-lg-4">
