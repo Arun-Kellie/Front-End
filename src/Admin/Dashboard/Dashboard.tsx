@@ -9,6 +9,7 @@ import {Pie} from 'react-chartjs-2';
 import {map, uniqueId} from 'lodash';
 import {dashboardConstants} from './dashboardConstants';
 import {chartColors, chartOptions, lightenDarkenColor} from '../../utils/util';
+import {ChartData} from 'chart.js';
 
 const colors = [
   {
@@ -63,7 +64,7 @@ const columns = [
   }
 ];
 
-const chartData = {
+const chartData:ChartData = {
   labels: [
     'Department 1',
     'Department 2',
@@ -75,7 +76,7 @@ const chartData = {
   datasets: [{
     data: [300, 50, 100, 250,120,63],
     backgroundColor: chartColors,
-    hoverBackgroundColor: map(chartColors, color => {
+    hoverBackgroundColor: map(chartColors, (color:string) => {
       return lightenDarkenColor(color, -20)
     })
   }]
