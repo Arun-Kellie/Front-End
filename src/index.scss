@@ -5,6 +5,8 @@
 @import "~@blueprintjs/core/lib/css/blueprint.css";
 @import "~@blueprintjs/icons/lib/css/blueprint-icons.css";
 
+$theme-color-blue: #137cbd;
+
 .bp3-toast {
   background-color: red;
   color: white;
@@ -12,4 +14,13 @@
 
 .page-content {
   padding-top: 20px;
+}
+
+#pageDropDown, .page-item.active .page-link {
+  background-color: $theme-color-blue;
+  border-color: $theme-color-blue;
+}
+
+.page-link {
+  color: $theme-color-blue;
 }
