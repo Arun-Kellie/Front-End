@@ -1,18 +1,18 @@
 import React, { FunctionComponent } from "react";
-import { Card, Elevation, H5 } from "@blueprintjs/core";
+import { Card, Elevation, H2 } from "@blueprintjs/core";
 import NavbarComponent from "../../Navbar/NavbarComponent";
 import BootstrapTable from "react-bootstrap-table-next";
-import filterFactory, {textFilter, dateFilter, Comparator} from 'react-bootstrap-table2-filter';
+import filterFactory, {textFilter, dateFilter} from 'react-bootstrap-table2-filter';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import 'chartjs-plugin-datalabels';
 import {Pie} from 'react-chartjs-2';
 import {map, uniqueId} from 'lodash';
 import {dashboardConstants} from './dashboardConstants';
-import {chartColors, chartOptions, lightenDarkenColor} from '../../utils/util';
+import {chartColors, chartOptions, lightenDarkenColor} from '../../../utils/util';
 import {ChartData} from 'chart.js';
 import moment from 'moment';
 // @ts-ignore
-import variables from '../../index.scss'
+import variables from '../../../index.scss'
 
 const dateFormatter = (cell: string) => {
   return (
@@ -710,8 +710,10 @@ const AdminDashboard: FunctionComponent = () => {
           <div className="row">
             {map(dashboardConstants.cardNames, cardName => (
                 <div key={uniqueId()} className="col-12 col-sm-6 col-lg-4 mb-4">
-                  <Card elevation={Elevation.TWO}>
-                    <H5 className="pb-0 card-header">{cardName}</H5>
+                  {console.log('cardName.backgroundColor', variables[cardName.backgroundColor])}
+                  <Card elevation={Elevation.TWO} style={{backgroundColor: variables[cardName.backgroundColor]}}>
+                    <H2 className="m-b-5 font-strong" style={{color: variables[cardName.color]}}>{cardName.count}</H2>
+                    <div className="m-b-5" style={{color: variables[cardName.color]}}>{cardName.name}</div>
                   </Card>
                 </div>
             ))}
@@ -729,7 +731,7 @@ const AdminDashboard: FunctionComponent = () => {
               />
             </div>
             <div className="col-12 col-sm-6 col-lg-4">
-              <H5 className="pb-0 card-header">Files</H5>
+              <H2 className="pb-0 card-header">Files</H2>
               <Pie data={chartData} options={chartOptions}
               />
             </div>

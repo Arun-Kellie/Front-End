@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useRef } from "react";
+import React, { FunctionComponent, useState } from "react";
 
 import {
   FormGroup,
@@ -12,14 +12,17 @@ import {
 } from "@blueprintjs/core";
 
 import { Redirect } from "react-router-dom";
-import { userDetails } from "../utils/loginDetails";
-import { userIcon } from "../utils/IconsComponent";
+import { userDetails } from "../../utils/loginDetails";
+import { userIcon } from "../../utils/IconsComponent";
 
-const LoginForm: FunctionComponent = () => {
+interface LoginFormProps {
+  handleClickSignUp: (e: boolean) => void;
+}
+
+const LoginForm: FunctionComponent<LoginFormProps> = (props:LoginFormProps) => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [isSignUp, setSignUp] = useState<boolean>(false);
   const [isLoggedin, setLoggedIn] = useState<boolean>(false);
   const [isForgotPassword, setForgotPassword] = useState<boolean>(false);
   const [isInvalidPassword, setIsInvalidPassword] = useState<boolean>(false);
@@ -42,7 +45,7 @@ const LoginForm: FunctionComponent = () => {
   );
 
   const handleSignUp = () => {
-    setSignUp(true);
+    props.handleClickSignUp(true);
   };
 
   const _handleKeyDown = (e:any) => {
@@ -70,9 +73,6 @@ const LoginForm: FunctionComponent = () => {
     }
   };
 
-  if (isSignUp) {
-    return <Redirect push to="/signup" />;
-  }
   if (isForgotPassword) {
     return <Redirect push to="/forgot" />;
   }
@@ -82,7 +82,6 @@ const LoginForm: FunctionComponent = () => {
   return (
     <div className="container">
       <div className="justify-content-center row">
-        <div className="col-lg-5">
           <Card elevation={Elevation.TWO}>
             <div className="p-4 position-relative">
               {isInvalidLoginInfo && (
@@ -130,7 +129,6 @@ const LoginForm: FunctionComponent = () => {
               </div>
             </div>
           </Card>
-        </div>
       </div>
     </div>
   );

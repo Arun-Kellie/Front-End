@@ -9,10 +9,10 @@ import {
   Intent,
   H4
 } from "@blueprintjs/core";
-import { userIcon } from "../utils/IconsComponent";
+import { userIcon } from "../../utils/IconsComponent";
 import { Redirect } from "react-router";
-import { userDetails } from "../utils/loginDetails";
-import AppToaster from "../utils/AppToaster";
+import { userDetails } from "../../utils/loginDetails";
+import AppToaster from "../../utils/AppToaster";
 
 const ForgotPassword: FunctionComponent = () => {
   const [username, setUsername] = useState<string>("");

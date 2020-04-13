@@ -11,19 +11,21 @@ import {
 } from "@blueprintjs/core";
 
 import { trimStart } from "lodash";
-import { formatPhoneNumber, isValidEmail } from "../utils/util";
-import { Redirect } from "react-router";
-import { emailIcon, phoneIcon, userIcon } from "../utils/IconsComponent";
-import AppToaster from "../utils/AppToaster";
+import { formatPhoneNumber, isValidEmail } from "../../utils/util";
+import { emailIcon, phoneIcon, userIcon } from "../../utils/IconsComponent";
+import AppToaster from "../../utils/AppToaster";
 
-const SignUp: FunctionComponent = () => {
+interface SignUpProps {
+  handleCancelSignUp: (e: boolean) => void;
+}
+
+const SignUp: FunctionComponent<SignUpProps> = (props:SignUpProps) => {
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [isSignUp, setSignUp] = useState<boolean>(false);
   const [isInvalidEmail, setIsInvalidEmail] = useState<boolean>(false);
   const [isInvalidPassword, setIsInvalidPassword] = useState<boolean>(false);
   const [isInvalidUsername, setIsInvalidUsername] = useState<boolean>(false);
@@ -65,13 +67,9 @@ const SignUp: FunctionComponent = () => {
     setPhone(trimStart(formatPhoneNumber(value).slice(0, 10)));
   };
 
-  if (isSignUp) {
-    return <Redirect to="/" />;
-  }
   return (
     <div className="container">
-      <div className="justify-content-center row">
-        <div className="col-lg-5">
+      <div className="justify-content-center">
           <Card elevation={Elevation.TWO}>
             <div className="p-4 position-relative">
               <FormGroup label="Username" labelInfo="(required)">
@@ -130,7 +128,7 @@ const SignUp: FunctionComponent = () => {
               </FormGroup>
               <div className="row">
                 <div className="col">
-                  <Button onClick={() => setSignUp(true)}>Cancel</Button>
+                  <Button onClick={() => props.handleCancelSignUp(false)}>Cancel</Button>
                 </div>
                 <div className="col">
                   <Button
@@ -144,7 +142,6 @@ const SignUp: FunctionComponent = () => {
               </div>
             </div>
           </Card>
-        </div>
       </div>
     </div>
   );
