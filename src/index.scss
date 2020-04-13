@@ -5,7 +5,15 @@
 @import "~@blueprintjs/core/lib/css/blueprint.css";
 @import "~@blueprintjs/icons/lib/css/blueprint-icons.css";
 
-$theme-color-blue: #137cbd;
+$theme-color-blue: #0072C6;
+$theme-color-green: #1EB53A;
+$theme-color-white: #ffffff;
+
+:export {
+  blueColor: $theme-color-blue;
+  greenColor: $theme-color-green;
+  whiteColor: $theme-color-white;
+}
 
 .bp3-toast {
   background-color: red;
@@ -27,4 +35,16 @@ $theme-color-blue: #137cbd;
 
 .react-bootstrap-table-page-btns-ul {
   float: right;
+}
+
+.background-color-blue {
+  background-color: $theme-color-blue;
+}
+
+.background-color-green {
+  background-color: $theme-color-green;
+}
+
+.background-color-white {
+  background-color: $theme-color-white;
 }

@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useState, useRef } from "react";
 
 import {
   FormGroup,
@@ -26,6 +26,8 @@ const LoginForm: FunctionComponent = () => {
   const [isInvalidUsername, setIsInvalidUsername] = useState<boolean>(false);
   const [isInvalidLoginInfo, setIsInvalidLoginInfo] = useState<boolean>(false);
 
+  // const buttonClick = useRef(null);
+
   const handleLockClick = () => setShowPassword(!showPassword);
 
   const lockButton = (
@@ -42,6 +44,12 @@ const LoginForm: FunctionComponent = () => {
   const handleSignUp = () => {
     setSignUp(true);
   };
+
+  const _handleKeyDown = (e:any) => {
+    if (e.key === 'Enter') {
+      handleLogin()
+    }
+  }
 
   const handleLogin = () => {
     if (!username) {
@@ -100,6 +108,7 @@ const LoginForm: FunctionComponent = () => {
                   value={password}
                   round
                   onChange={(e: any) => setPassword(e.currentTarget.value)}
+                  onKeyDown={_handleKeyDown}
                 />
               </FormGroup>
               <FormGroup>
