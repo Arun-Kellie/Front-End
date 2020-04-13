@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, {FunctionComponent, useState} from 'react';
 import {
   Alignment,
   Navbar,
@@ -17,11 +17,13 @@ import variables from "../../index.scss";
 
 const NavbarComponent: FunctionComponent = () => {
 
+  const [showSideMenu, setSideMenu] = useState<boolean>(true);
+
   return (
     <Navbar>
       <Navbar.Group align={Alignment.LEFT}>
         <Navbar.Heading>
-          <Button icon={"menu-closed"} minimal></Button>
+          <Button icon={showSideMenu ? "menu-closed" :"menu-open"} minimal onClick={() => setSideMenu(!showSideMenu)}></Button>
         </Navbar.Heading>
         <Navbar.Divider />
         <Button className="bp3-minimal" icon="home" text="Dashboard" />
