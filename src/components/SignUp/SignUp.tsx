@@ -7,8 +7,8 @@ import {
   Tooltip,
   Button,
   Card,
-  Elevation
-} from "@blueprintjs/core";
+  Elevation, ControlGroup
+} from '@blueprintjs/core';
 
 import { trimStart } from "lodash";
 import { formatPhoneNumber, isValidEmail } from "../../utils/util";
@@ -64,7 +64,7 @@ const SignUp: FunctionComponent<SignUpProps> = (props:SignUpProps) => {
 
   const handlePhoneNumber = (e: any) => {
     const value = e.currentTarget.value;
-    setPhone(trimStart(formatPhoneNumber(value).slice(0, 10)));
+    setPhone(trimStart(formatPhoneNumber(value).slice(0, 9)));
   };
 
   return (
@@ -117,7 +117,9 @@ const SignUp: FunctionComponent<SignUpProps> = (props:SignUpProps) => {
                 />
               </FormGroup>
               <FormGroup label="Phone">
-                <InputGroup
+                <ControlGroup fill={true} vertical={false}>
+                  <Button icon="filter">Filter</Button>
+                  <InputGroup
                   placeholder="Phone"
                   intent={Intent.PRIMARY}
                   value={phone}
@@ -125,6 +127,7 @@ const SignUp: FunctionComponent<SignUpProps> = (props:SignUpProps) => {
                   round
                   onChange={handlePhoneNumber}
                 />
+                </ControlGroup>
               </FormGroup>
               <div className="row">
                 <div className="col">
