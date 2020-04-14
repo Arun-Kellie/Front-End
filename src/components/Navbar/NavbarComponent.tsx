@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent } from "react";
 import {
   Alignment,
   Navbar,
@@ -22,7 +22,6 @@ const NavbarComponent: FunctionComponent = () => {
       <DashboardContextConsumer>
         {dashboardContext =>
           <Navbar>
-            {console.log(dashboardContext)}
             <Navbar.Group align={Alignment.LEFT}>
               <Navbar.Heading>
                 <Button
