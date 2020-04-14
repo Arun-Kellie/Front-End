@@ -26,7 +26,7 @@ const NavbarComponent: FunctionComponent = () => {
             icon={showSideMenu ? "menu-closed" : "menu-open"}
             minimal
             onClick={() => setSideMenu(!showSideMenu)}
-          ></Button>
+          />
         </Navbar.Heading>
         <Navbar.Divider />
         <Button className="bp3-minimal" icon="home" text="Dashboard" />

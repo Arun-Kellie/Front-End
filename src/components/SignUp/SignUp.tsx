@@ -14,18 +14,17 @@ import {
   Card,
   Elevation,
   ControlGroup,
+  MenuItem
 } from "@blueprintjs/core";
-import Select from "react-select";
-import { head, isEmpty, trimStart, forEach } from "lodash";
-import { formatPhoneNumber, isValidEmail } from "../../utils/util";
+import {ItemPredicate, ItemRenderer, Select} from '@blueprintjs/select';
+import { head, isEmpty, trimStart } from "lodash";
+import {formatPhoneNumber, highlightText, isValidEmail} from '../../utils/util';
 import { emailIcon, phoneIcon, userIcon } from "../../utils/IconsComponent";
 import AppToaster from "../../utils/AppToaster";
 import APICacheContext from "../../services/APICacheContext";
-import './signup.scss';
 
 interface ICountryCodes {
-  value: string;
-  label: string;
+  name: string;
   dial_code: string;
   code: string;
 }
@@ -33,6 +32,14 @@ interface ICountryCodes {
 interface SignUpProps {
   handleCancelSignUp: (e: boolean) => void;
 }
+
+interface ICountryProps {
+  name: string;
+  code: string;
+  dial_code: string;
+}
+
+const CountrySelect = Select.ofType<ICountryProps>();
 
 const SignUp: FunctionComponent<SignUpProps> = (props: SignUpProps) => {
   const [username, setUsername] = useState<string>("");
@@ -58,10 +65,7 @@ const SignUp: FunctionComponent<SignUpProps> = (props: SignUpProps) => {
         "https://admitted-exoplanet.glitch.me/api/countries"
       ]);
       if (!isEmpty(response)) {
-        setCountryCodes(forEach(head(response).data, (item: any) => {
-          item.label = item.name;
-          item.value = item.name;
-        }));
+        setCountryCodes(head(response).data);
       }
     })();
   }, [context]);
@@ -103,9 +107,42 @@ const SignUp: FunctionComponent<SignUpProps> = (props: SignUpProps) => {
     setPhone(trimStart(formatPhoneNumber(value).slice(0, 9)));
   };
 
-  const handleSelectChange = (item: ICountryCodes) => {
-    setSelectedCountry(item)
-  }
+  const renderCountry: ItemRenderer<ICountryCodes> = (
+    country,
+    { handleClick, modifiers, query }
+  ) => {
+    if (!modifiers.matchesPredicate) {
+      return null;
+    }
+
+    return (
+      <MenuItem
+        active={modifiers.active}
+        disabled={modifiers.disabled}
+        label={country.dial_code}
+        key={country.code}
+        onClick={handleClick}
+        text={highlightText(country.name, query)}
+      />
+    );
+  };
+
+  const handleItemSelect = (item: ICountryCodes) => {
+    setSelectedCountry(item);
+  };
+
+  const filterCountry: ItemPredicate<ICountryCodes> = (query, country, _index, exactMatch) => {
+    const normalizedTitle = country.name.toLowerCase();
+    const normalizedQuery = query.toLowerCase();
+
+    if (exactMatch) {
+      return normalizedTitle === normalizedQuery;
+    } else {
+      return `${country.name}. ${normalizedTitle} ${country.dial_code}`.indexOf(normalizedQuery) >= 0;
+    }
+  };
+
+  let text = 'Select a country';
 
   return (
     <div className="container">
@@ -156,12 +193,22 @@ const SignUp: FunctionComponent<SignUpProps> = (props: SignUpProps) => {
             </FormGroup>
             <FormGroup label="Phone">
               <ControlGroup fill={true} vertical={false}>
-                <Select
-                  className='countryDropdown'
-                  options={countryCodes}
-                  onChange={(e: any) => handleSelectChange(e)}
-                  value={selectedCountry}
-                />
+                <CountrySelect
+                  items={countryCodes || []}
+                  itemRenderer={renderCountry}
+                  onItemSelect={handleItemSelect}
+                  activeItem={selectedCountry}
+                  itemPredicate={filterCountry}
+                noResults={<MenuItem disabled={true} text="No results." />}
+                >
+                  <Button
+                      alignText="left"
+                      rightIcon="caret-down"
+                      fill={true}
+                      text={selectedCountry ? `${selectedCountry.name} (${selectedCountry.dial_code})` : text}
+                      title={text}
+                  />
+                </CountrySelect>
                 <InputGroup
                   placeholder="Phone"
                   intent={Intent.PRIMARY}

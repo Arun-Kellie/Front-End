@@ -1,15 +1,7 @@
+import React from 'react';
 import {
   replace,
-  toLower,
-  isEmpty,
-  map,
-  isString,
-  isNumber,
-  includes,
-  keys,
-  head,
-  uniqueId,
-  toString
+  toLower
 } from "lodash";
 
 export const chartColors: Array<string> = [
@@ -82,43 +74,37 @@ export const lightenDarkenColor = (color: string, percent: number) => {
   return "#" + RR + GG + BB;
 };
 
-export const DROPDOWN_FORMAT = (array: [], prependSelect: boolean = false) => {
-  if (!isEmpty(array) && head(array) !== undefined && head(array) !== null) {
-    const mappedArray = map(array, (item: any) => {
-      if (isString(item) || isNumber(item)) {
-        return {
-          label: toString(item),
-          value: toString(item),
-          id: uniqueId(),
-          code: uniqueId("code_")
-        };
-      }
-      if (includes(keys(item), "name")) {
-        return {
-          label: isString(item.name) ? item.name : item,
-          value: isString(item.name) ? item.name : item,
-          id: toString(item.id) || uniqueId(),
-          code: item.code
-        };
-      }
-      if (includes(keys(item), "label")) {
-        return {
-          label: isString(item.label) ? item.label : item,
-          value: isString(item.label) ? item.label : item,
-          id: toString(item.id) || uniqueId(),
-          code: item.code
-        };
-      }
-    });
-    if (prependSelect) {
-      mappedArray.unshift({
-        label: "-Select-",
-        value: "-Select-",
-        id: uniqueId(),
-        code: uniqueId("code_")
-      });
-    }
-    return mappedArray;
+const escapeRegExpChars = (text: string) => {
+  return text.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+}
+
+export const highlightText = (text: string, query: string) => {
+  let lastIndex = 0;
+  const words = query
+      .split(/\s+/)
+      .filter(word => word.length > 0)
+      .map(escapeRegExpChars);
+  if (words.length === 0) {
+    return [text];
   }
-  return [];
-};
+  const regexp = new RegExp(words.join("|"), "gi");
+  const tokens: React.ReactNode[] = [];
+  while (true) {
+    const match = regexp.exec(text);
+    if (!match) {
+      break;
+    }
+    const length = match[0].length;
+    const before = text.slice(lastIndex, regexp.lastIndex - length);
+    if (before.length > 0) {
+      tokens.push(before);
+    }
+    lastIndex = regexp.lastIndex;
+    tokens.push(<strong key={lastIndex}>{match[0]}</strong>);
+  }
+  const rest = text.slice(lastIndex);
+  if (rest.length > 0) {
+    tokens.push(rest);
+  }
+  return tokens;
+}
