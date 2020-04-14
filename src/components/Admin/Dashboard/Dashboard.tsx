@@ -1,5 +1,7 @@
 import React, {
   FunctionComponent,
+    useContext,
+    useState
 } from "react";
 import { Card, Elevation, H2 } from "@blueprintjs/core";
 import NavbarComponent from "../../Navbar/NavbarComponent";
@@ -22,6 +24,8 @@ import { ChartData } from "chart.js";
 import moment from "moment";
 // @ts-ignore
 import variables from "../../../index.scss";
+import AdminSidePanel from './SidePanel';
+import {DashboardContextProvider, DashboardContextConsumer} from './DashboardContext';
 
 const dateFormatter = (cell: string) => {
   return (
@@ -723,54 +727,78 @@ const paginationOptions = {
   ] // A numeric array is also available. the purpose of above example is custom the text
 };
 
-const AdminDashboard: FunctionComponent = () => {
+interface ISidePanelProviderProps {
+  children: any;
+}
+
+const AdminDashboardProvider = (props:ISidePanelProviderProps) => {
+  const [menuOpenState, setMenuOpenState] = useState(false)
+
   return (
-    <>
-      <NavbarComponent />
-      <div className="container-fluid page-content fade-in-up">
+      <DashboardContextProvider value={{
+        isMenuOpen: menuOpenState,
+        toggleMenu: () => setMenuOpenState(!menuOpenState),
+        stateChangeHandler: (newState) => setMenuOpenState(newState.isOpen)
+      }}>
+       <AdminDashboard />
+      </DashboardContextProvider>
+  )
+}
+
+const AdminDashboard: FunctionComponent = () => {
+
+  return (
+    <DashboardContextConsumer>
+      {dashboardContext => (
+          <div id="outer-container" style={{height: '100%'}}>
+          <NavbarComponent/>
+        <AdminSidePanel />
+        <div className="container-fluid page-content fade-in-up" id="page-wrap" style={{paddingLeft: dashboardContext?.isMenuOpen ? '310px' : '', height: '100%', overflow: 'auto'}}>
         <div className="row">
-          {map(dashboardConstants.cardNames, cardName => (
+        {map(dashboardConstants.cardNames, cardName => (
             <div key={uniqueId()} className="col-12 col-sm-6 col-lg-4 mb-4">
               <Card
-                elevation={Elevation.TWO}
-                style={{ backgroundColor: variables[cardName.backgroundColor] }}
+                  elevation={Elevation.TWO}
+                  style={{backgroundColor: variables[cardName.backgroundColor]}}
               >
                 <H2
-                  className="m-b-5 font-strong"
-                  style={{ color: variables[cardName.color] }}
+                    className="m-b-5 font-strong"
+                    style={{color: variables[cardName.color]}}
                 >
                   {cardName.count}
                 </H2>
                 <div
-                  className="m-b-5"
-                  style={{ color: variables[cardName.color] }}
+                    className="m-b-5"
+                    style={{color: variables[cardName.color]}}
                 >
                   {cardName.name}
                 </div>
               </Card>
             </div>
-          ))}
+        ))}
         </div>
         <div className="row">
-          <div className="col-12 col-sm-6 col-lg-8">
-            <BootstrapTable
-              bootstrap4
-              keyField="id"
-              data={tableData}
-              columns={columns}
-              filter={filterFactory()}
-              filterPosition="top"
-              pagination={paginationFactory(paginationOptions)}
-            />
-          </div>
-          <div className="col-12 col-sm-6 col-lg-4">
-            <H2 className="pb-0 card-header">Files</H2>
-            <Pie data={chartData} options={chartOptions} />
-          </div>
+        <div className="col-12 col-sm-6 col-lg-8">
+        <BootstrapTable
+        bootstrap4
+        keyField="id"
+        data={tableData}
+        columns={columns}
+        filter={filterFactory()}
+        filterPosition="top"
+        pagination={paginationFactory(paginationOptions)}
+        />
         </div>
-      </div>
-    </>
+        <div className="col-12 col-sm-6 col-lg-4">
+        <H2 className="pb-0 card-header">Files</H2>
+        <Pie data={chartData} options={chartOptions} />
+        </div>
+        </div>
+        </div>
+          </div>
+        )}
+    </DashboardContextConsumer>
   );
 };
 
-export default AdminDashboard;
+export default AdminDashboardProvider;

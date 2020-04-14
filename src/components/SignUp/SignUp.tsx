@@ -16,9 +16,13 @@ import {
   ControlGroup,
   MenuItem
 } from "@blueprintjs/core";
-import {ItemPredicate, ItemRenderer, Select} from '@blueprintjs/select';
+import { ItemPredicate, ItemRenderer, Select } from "@blueprintjs/select";
 import { head, isEmpty, trimStart } from "lodash";
-import {formatPhoneNumber, highlightText, isValidEmail} from '../../utils/util';
+import {
+  formatPhoneNumber,
+  highlightText,
+  isValidEmail
+} from "../../utils/util";
 import { emailIcon, phoneIcon, userIcon } from "../../utils/IconsComponent";
 import AppToaster from "../../utils/AppToaster";
 import APICacheContext from "../../services/APICacheContext";
@@ -131,18 +135,27 @@ const SignUp: FunctionComponent<SignUpProps> = (props: SignUpProps) => {
     setSelectedCountry(item);
   };
 
-  const filterCountry: ItemPredicate<ICountryCodes> = (query, country, _index, exactMatch) => {
+  const filterCountry: ItemPredicate<ICountryCodes> = (
+    query,
+    country,
+    _index,
+    exactMatch
+  ) => {
     const normalizedTitle = country.name.toLowerCase();
     const normalizedQuery = query.toLowerCase();
 
     if (exactMatch) {
       return normalizedTitle === normalizedQuery;
     } else {
-      return `${country.name}. ${normalizedTitle} ${country.dial_code}`.indexOf(normalizedQuery) >= 0;
+      return (
+        `${country.name}. ${normalizedTitle} ${country.dial_code}`.indexOf(
+          normalizedQuery
+        ) >= 0
+      );
     }
   };
 
-  let text = 'Select a country';
+  let text = "Select a country";
 
   return (
     <div className="container">
@@ -199,14 +212,18 @@ const SignUp: FunctionComponent<SignUpProps> = (props: SignUpProps) => {
                   onItemSelect={handleItemSelect}
                   activeItem={selectedCountry}
                   itemPredicate={filterCountry}
-                noResults={<MenuItem disabled={true} text="No results." />}
+                  noResults={<MenuItem disabled={true} text="No results." />}
                 >
                   <Button
-                      alignText="left"
-                      rightIcon="caret-down"
-                      fill={true}
-                      text={selectedCountry ? `${selectedCountry.name} (${selectedCountry.dial_code})` : text}
-                      title={text}
+                    alignText="left"
+                    rightIcon="caret-down"
+                    fill={true}
+                    text={
+                      selectedCountry
+                        ? `${selectedCountry.name} (${selectedCountry.dial_code})`
+                        : text
+                    }
+                    title={text}
                   />
                 </CountrySelect>
                 <InputGroup

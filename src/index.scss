@@ -49,3 +49,8 @@ $theme-color-white: #ffffff;
 .background-color-white {
   background-color: $theme-color-white;
 }
+
+main {
+  height: 100%;
+  overflow: auto;
+}
