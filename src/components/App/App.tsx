@@ -1,13 +1,20 @@
 import React from "react";
 import "./App.scss";
-import Routes from '../Routes';
+import Routes from "../Routes";
+import APICache from "../../services/APICache";
+import APICacheContext from "../../services/APICacheContext";
+import * as API from "../../services/API";
 
-function App() {
+const App = () => {
+  const cache = new APICache(API.load);
+
   return (
-      <main className="main">
-          <Routes />
-      </main>
+    <main className="main">
+      <APICacheContext.Provider value={cache}>
+        <Routes />
+      </APICacheContext.Provider>
+    </main>
   );
-}
+};
 
 export default App;
