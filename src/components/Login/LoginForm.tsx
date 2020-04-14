@@ -1,4 +1,5 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useState, useContext  } from "react";
+import {userContext} from '../UserContext/UserContext';
 
 import {
   FormGroup,
@@ -29,7 +30,7 @@ const LoginForm: FunctionComponent<LoginFormProps> = (props:LoginFormProps) => {
   const [isInvalidUsername, setIsInvalidUsername] = useState<boolean>(false);
   const [isInvalidLoginInfo, setIsInvalidLoginInfo] = useState<boolean>(false);
 
-  // const buttonClick = useRef(null);
+  const userLoggedIn = useContext(userContext);
 
   const handleLockClick = () => setShowPassword(!showPassword);
 
@@ -66,9 +67,11 @@ const LoginForm: FunctionComponent<LoginFormProps> = (props:LoginFormProps) => {
       setIsInvalidPassword(false);
     }
     if (username === userDetails.name && password === userDetails.password) {
+      userLoggedIn?.stateChangeHandler({isAdmin: true, isUserLoggedIn: true})
       setLoggedIn(true);
       setIsInvalidLoginInfo(false);
     } else {
+      userLoggedIn?.stateChangeHandler({isAdmin: false, isUserLoggedIn: false})
       setIsInvalidLoginInfo(true);
     }
   };

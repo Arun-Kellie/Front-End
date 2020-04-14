@@ -727,11 +727,7 @@ const paginationOptions = {
   ] // A numeric array is also available. the purpose of above example is custom the text
 };
 
-interface ISidePanelProviderProps {
-  children: any;
-}
-
-const AdminDashboardProvider = (props:ISidePanelProviderProps) => {
+const AdminDashboardProvider = () => {
   const [menuOpenState, setMenuOpenState] = useState(false)
 
   return (

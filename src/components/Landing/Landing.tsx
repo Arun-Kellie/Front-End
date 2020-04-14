@@ -3,6 +3,17 @@ import { ReactComponent as SierraLeoneMap } from "../../assets/img/sierra-leone.
 import "./landing.scss";
 import LoginForm from "../Login/LoginForm";
 import SignUp from "../SignUp/SignUp";
+import {UserContextProvider} from '../UserContext/UserContext';
+
+const LandingContextComponent = () => (
+    <UserContextProvider value={{
+      isUserLoggedIn: false,
+      isAdmin: false,
+      stateChangeHandler: newState => {}
+    }}>
+      <Landing />
+    </UserContextProvider>
+)
 
 const Landing: FunctionComponent = () => {
   const [goToSignUpPage, setToSignUpPage] = useState<boolean>(false);
@@ -33,4 +44,4 @@ const Landing: FunctionComponent = () => {
   );
 };
 
-export default Landing;
+export default LandingContextComponent;
