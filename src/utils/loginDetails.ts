@@ -1,4 +1,4 @@
 export const userDetails = {
-  name: "test",
-  password: "password"
+	name: 'test',
+	password: 'password',
 };

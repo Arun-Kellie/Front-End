@@ -1,78 +1,79 @@
-@import "src/index";
+@import 'src/index';
 /*
 Sidebar wrapper styles
 Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
 */
 
 .bm-menu-wrap {
-  position: fixed;
-  height: 100%;
+	position: fixed;
+	height: 100%;
 }
 
 .bm-cross-button {
-  pointer-events: none;
+	pointer-events: none;
 }
 
 /* General sidebar styles */
 
 .bm-menu {
-  background: $theme-color-blue;
-  font-size: 1.15em;
+	background: $theme-color-blue;
+	font-size: 1.15em;
 }
 
 /* Morph shape necessary with bubble or elastic */
 
 .bm-morph-shape {
-  fill: #373a47;
+	fill: #373a47;
 }
 
 /* Wrapper for item list */
 
 .bm-item-list {
-  color: #b8b7ad;
+	color: #b8b7ad;
 }
 
 /* Individual item */
 
 .bm-item {
-  display: inline-block;
+	display: inline-block;
 }
 
 /* Styling of overlay */
 
 .bm-overlay {
-  background: rgba(0, 0, 0, 0.3);
+	background: rgba(0, 0, 0, 0.3);
 }
 
 .sideBarItem {
-  >.bp3-icon, .bp3-text-overflow-ellipsis {
-    color: $theme-color-white
-  }
+	> .bp3-icon,
+	.bp3-text-overflow-ellipsis {
+		color: $theme-color-white;
+	}
 }
 
 .page-brand {
-  height: 56px;
-  width: 300px;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
-  align-items: center;
-  padding: 0 15px;
-  font-weight: 500;
-  font-size: 20px;
-  -webkit-transition: all .2s ease-in-out;
-  -o-transition: all .2s ease-in-out;
-  transition: all .2s ease-in-out;
-  overflow: hidden;
-  background-color: #373a47;
+	height: 56px;
+	width: 300px;
+	display: -webkit-inline-flex;
+	display: -ms-inline-flexbox;
+	display: inline-flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center;
+	padding: 0 15px;
+	font-weight: 500;
+	font-size: 20px;
+	-webkit-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+	overflow: hidden;
+	background-color: #373a47;
 }
 
 .page-brand .brand {
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  color: $theme-color-white;
+	display: -webkit-inline-flex;
+	display: -ms-inline-flexbox;
+	display: inline-flex;
+	color: $theme-color-white;
 }

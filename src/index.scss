@@ -1,56 +1,57 @@
-@import "~normalize.css/normalize.css";
-@import "~animate.css/animate.min.css";
-@import "~react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
-@import "~bootstrap-css-only/css/bootstrap.min.css";
-@import "~@blueprintjs/core/lib/css/blueprint.css";
-@import "~@blueprintjs/icons/lib/css/blueprint-icons.css";
+@import '~normalize.css/normalize.css';
+@import '~animate.css/animate.min.css';
+@import '~react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
+@import '~bootstrap-css-only/css/bootstrap.min.css';
+@import '~@blueprintjs/core/lib/css/blueprint.css';
+@import '~@blueprintjs/icons/lib/css/blueprint-icons.css';
 @import '~@blueprintjs/select/lib/css/blueprint-select.css';
 
-$theme-color-blue: #0072C6;
-$theme-color-green: #1EB53A;
+$theme-color-blue: #0072c6;
+$theme-color-green: #1eb53a;
 $theme-color-white: #ffffff;
 
 :export {
-  blueColor: $theme-color-blue;
-  greenColor: $theme-color-green;
-  whiteColor: $theme-color-white;
+	blueColor: $theme-color-blue;
+	greenColor: $theme-color-green;
+	whiteColor: $theme-color-white;
 }
 
 .bp3-toast {
-  background-color: red;
-  color: white;
+	background-color: red;
+	color: white;
 }
 
 .page-content {
-  padding-top: 20px;
+	padding-top: 20px;
 }
 
-#pageDropDown, .page-item.active .page-link {
-  background-color: $theme-color-blue;
-  border-color: $theme-color-blue;
+#pageDropDown,
+.page-item.active .page-link {
+	background-color: $theme-color-blue;
+	border-color: $theme-color-blue;
 }
 
 .page-link {
-  color: $theme-color-blue;
+	color: $theme-color-blue;
 }
 
 .react-bootstrap-table-page-btns-ul {
-  float: right;
+	float: right;
 }
 
 .background-color-blue {
-  background-color: $theme-color-blue;
+	background-color: $theme-color-blue;
 }
 
 .background-color-green {
-  background-color: $theme-color-green;
+	background-color: $theme-color-green;
 }
 
 .background-color-white {
-  background-color: $theme-color-white;
+	background-color: $theme-color-white;
 }
 
 main {
-  height: 100%;
-  overflow: auto;
+	height: 100%;
+	overflow: auto;
 }

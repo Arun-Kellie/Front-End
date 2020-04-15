@@ -1,9 +1,9 @@
-import * as React from "react";
+import * as React from 'react';
 
 export interface DashboardContextInterface {
 	isMenuOpen: boolean;
 	toggleMenu: () => void;
-	stateChangeHandler: (newState: {isOpen: boolean}) => void;
+	stateChangeHandler: (newState: { isOpen: boolean }) => void;
 }
 
 const dashboardContext = React.createContext<DashboardContextInterface | null>(null);
