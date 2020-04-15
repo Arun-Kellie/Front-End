@@ -731,6 +731,8 @@ const AdminDashboard: FunctionComponent = () => {
 						id="page-wrap"
 						style={{ paddingLeft: dashboardContext?.isMenuOpen ? '310px' : '', height: '100%', overflow: 'auto' }}
 					>
+						{console.log('width', window.screen.width)}
+						{console.log('height', window.screen.height)}
 						<div className="row">
 							{map(dashboardConstants.cardNames, (cardName) => (
 								<div key={uniqueId()} className="col-12 col-sm-6 col-lg-4 mb-4">

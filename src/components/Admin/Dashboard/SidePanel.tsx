@@ -12,6 +12,7 @@ const AdminSidePanel: FunctionComponent = () => {
 					isOpen={dashboardContext?.isMenuOpen}
 					onStateChange={(state) => dashboardContext?.stateChangeHandler(state)}
 					pageWrapId={'page-wrap'}
+					width={ '50%' }
 					outerContainerId={'outer-container'}
 				>
 					<div className="page-brand pt-3 text-center">
