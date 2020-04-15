@@ -77,3 +77,27 @@ Note: Beware of modifying this element as it can break the animations - you shou
 	display: inline-flex;
 	color: $theme-color-white;
 }
+
+@media only screen and (max-width: 600px) {
+	.sideMenu {
+		min-width: 80% !important;
+	}
+}
+
+@media only screen and (min-width: 600px) {
+	.sideMenu {
+		width: 15% !important;
+	}
+}
+
+@media only screen and (max-width: 600px) {
+	.mainPanelContent {
+		padding-left: 50% !important;
+	}
+}
+
+@media only screen and (min-width: 600px) {
+	.mainPanelContent {
+		padding-left: 16% !important;
+	}
+}

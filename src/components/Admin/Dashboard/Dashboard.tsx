@@ -15,6 +15,7 @@ import NavbarComponent from '../../Navbar/NavbarComponent';
 import { dashboardConstants } from './dashboardConstants';
 import { DashboardContextConsumer, DashboardContextProvider } from './DashboardContext';
 import AdminSidePanel from './SidePanel';
+import './sidepanel.scss';
 
 const dateFormatter = (cell: string) => {
 	return <span>{moment(cell).format('MM/DD/YYYY h:mm:ss a').toString()}</span>;
@@ -727,9 +728,9 @@ const AdminDashboard: FunctionComponent = () => {
 					<NavbarComponent />
 					<AdminSidePanel />
 					<div
-						className="container-fluid page-content fade-in-up"
+						className={`container-fluid page-content fade-in-up ${dashboardContext?.isMenuOpen && 'mainPanelContent'} `}
 						id="page-wrap"
-						style={{ paddingLeft: dashboardContext?.isMenuOpen ? '310px' : '', height: '100%', overflow: 'auto' }}
+						style={{ height: '100%', overflow: 'auto' }}
 					>
 						{console.log('width', window.screen.width)}
 						{console.log('height', window.screen.height)}

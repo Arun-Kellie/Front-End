@@ -12,7 +12,9 @@ const AdminSidePanel: FunctionComponent = () => {
 					isOpen={dashboardContext?.isMenuOpen}
 					onStateChange={(state) => dashboardContext?.stateChangeHandler(state)}
 					pageWrapId={'page-wrap'}
-					width={ '50%' }
+					className="sideMenu"
+					customBurgerIcon={false}
+					customCrossIcon={false}
 					outerContainerId={'outer-container'}
 				>
 					<div className="page-brand pt-3 text-center">
