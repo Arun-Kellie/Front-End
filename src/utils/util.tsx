@@ -1,10 +1,12 @@
 import { replace, toLower } from 'lodash';
 import React from 'react';
+// @ts-ignore
+import variables from '../index.scss';
 
 export const chartColors: string[] = [
-	'#7cb5ec',
+	variables.blueColor,
 	'#434348',
-	'#90ed7d',
+	variables.greenColor,
 	'#f7a35c',
 	'#8085e9',
 	'#f15c80',
