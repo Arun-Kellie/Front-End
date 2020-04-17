@@ -639,6 +639,14 @@ const columns = [
 		text: 'Date',
 		filter: dateFilter({}),
 		sort: true,
+		sortFunc: (a: any, b: any, order: string, dataField: any, rowA: any, rowB: any) => {
+			a = new Date(a);
+			b = new Date(b);
+			if (order === 'asc') {
+				return b - a;
+			}
+			return a - b;
+		},
 		formatter: dateFormatter,
 		headerStyle: {
 			backgroundColor: variables.greenColor,

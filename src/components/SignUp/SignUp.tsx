@@ -9,29 +9,19 @@ import {
 	InputGroup,
 	Intent,
 	MenuItem,
+	PopoverPosition,
 	Tooltip,
 } from '@blueprintjs/core';
-import { ItemPredicate, ItemRenderer, Select } from '@blueprintjs/select';
+import { Select } from '@blueprintjs/select';
 import { head, isEmpty, trimStart } from 'lodash';
 import APICacheContext from '../../services/APICacheContext';
 import AppToaster from '../../utils/AppToaster';
 import { emailIcon, phoneIcon, userIcon } from '../../utils/IconsComponent';
-import { formatPhone, highlightText, isValidEmail } from '../../utils/util';
-
-interface ICountryCodes {
-	name: string;
-	dial_code: string;
-	code: string;
-}
+import { formatPhone, isValidEmail } from '../../utils/util';
+import { CountrySelectProps, ICountryProps } from './countrySelect';
 
 interface SignUpProps {
 	handleCancelSignUp: (e: boolean) => void;
-}
-
-interface ICountryProps {
-	name: string;
-	code: string;
-	dial_code: string;
 }
 
 const CountrySelect = Select.ofType<ICountryProps>();
@@ -46,7 +36,7 @@ const SignUp: FunctionComponent<SignUpProps> = (props: SignUpProps) => {
 	const [isInvalidEmail, setIsInvalidEmail] = useState<boolean>(false);
 	const [isInvalidPassword, setIsInvalidPassword] = useState<boolean>(false);
 	const [isInvalidUsername, setIsInvalidUsername] = useState<boolean>(false);
-	const [selectedCountry, setSelectedCountry] = useState<ICountryCodes | null>(null);
+	const [selectedCountry, setSelectedCountry] = useState<ICountryProps | null>(null);
 
 	const context = useContext(APICacheContext);
 
@@ -98,36 +88,8 @@ const SignUp: FunctionComponent<SignUpProps> = (props: SignUpProps) => {
 		setPhone(trimStart(formatPhone(value).slice(0, 9)));
 	};
 
-	const renderCountry: ItemRenderer<ICountryCodes> = (country, { handleClick, modifiers, query }) => {
-		if (!modifiers.matchesPredicate) {
-			return null;
-		}
-
-		return (
-			<MenuItem
-				active={modifiers.active}
-				disabled={modifiers.disabled}
-				label={country.dial_code}
-				key={country.code}
-				onClick={handleClick}
-				text={highlightText(country.name, query)}
-			/>
-		);
-	};
-
-	const handleItemSelect = (item: ICountryCodes) => {
+	const handleItemSelect = (item: ICountryProps) => {
 		setSelectedCountry(item);
-	};
-
-	const filterCountry: ItemPredicate<ICountryCodes> = (query, country, _index, exactMatch) => {
-		const normalizedTitle = country.name.toLowerCase();
-		const normalizedQuery = query.toLowerCase();
-
-		if (exactMatch) {
-			return normalizedTitle === normalizedQuery;
-		} else {
-			return `${country.name}. ${normalizedTitle} ${country.dial_code}`.indexOf(normalizedQuery) >= 0;
-		}
 	};
 
 	const text = 'Select a country';
@@ -183,11 +145,12 @@ const SignUp: FunctionComponent<SignUpProps> = (props: SignUpProps) => {
 							<ControlGroup fill={true} vertical={false}>
 								<CountrySelect
 									items={countryCodes || []}
-									itemRenderer={renderCountry}
+									popoverProps={{ position: PopoverPosition.BOTTOM }}
 									onItemSelect={handleItemSelect}
 									activeItem={selectedCountry}
-									itemPredicate={filterCountry}
-									noResults={<MenuItem disabled={true} text="No results." />}
+									onActiveItemChange={setSelectedCountry}
+									{...CountrySelectProps}
+									noResults={<MenuItem disabled={true} text="No counties found." />}
 								>
 									<Button
 										alignText="left"

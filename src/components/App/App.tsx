@@ -9,7 +9,7 @@ const App = () => {
 	const cache = new APICache(API.load);
 
 	return (
-		<main className="main" style={{ height: '100%' }}>
+		<main className="main">
 			<APICacheContext.Provider value={cache}>
 				<Routes />
 			</APICacheContext.Provider>

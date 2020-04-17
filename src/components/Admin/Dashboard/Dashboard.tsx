@@ -48,16 +48,13 @@ const AdminDashboard: FunctionComponent = () => {
 	return (
 		<DashboardContextConsumer>
 			{(dashboardContext) => (
-				<div id="outer-container" style={{ height: '100%' }}>
+				<div id="outer-container">
 					<NavbarComponent />
 					<AdminSidePanel />
 					<div
 						className={`container-fluid page-content fade-in-up ${dashboardContext?.isMenuOpen && 'mainPanelContent'} `}
 						id="page-wrap"
-						style={{ height: '100%', overflow: 'auto' }}
 					>
-						{console.log('width', window.screen.width)}
-						{console.log('height', window.screen.height)}
 						<div className="row">
 							{map(dashboardConstants.cardNames, (cardName) => (
 								<div key={uniqueId()} className="col-12 col-sm-6 col-lg-4 mb-4">

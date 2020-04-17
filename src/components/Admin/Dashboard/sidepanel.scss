@@ -69,18 +69,20 @@ Note: Beware of modifying this element as it can break the animations - you shou
 	transition: all 0.2s ease-in-out;
 	overflow: hidden;
 	background-color: #373a47;
-}
 
-.page-brand .brand {
-	display: -webkit-inline-flex;
-	display: -ms-inline-flexbox;
-	display: inline-flex;
-	color: $theme-color-white;
+	.brand {
+		display: -webkit-inline-flex;
+		display: -ms-inline-flexbox;
+		display: inline-flex;
+		color: $theme-color-white;
+	}
 }
-
 @media only screen and (max-width: 600px) {
 	.sideMenu {
 		min-width: 80% !important;
+	}
+	.mainPanelContent {
+		padding-left: 50% !important;
 	}
 }
 
@@ -88,15 +90,6 @@ Note: Beware of modifying this element as it can break the animations - you shou
 	.sideMenu {
 		width: 15% !important;
 	}
-}
-
-@media only screen and (max-width: 600px) {
-	.mainPanelContent {
-		padding-left: 50% !important;
-	}
-}
-
-@media only screen and (min-width: 600px) {
 	.mainPanelContent {
 		width: 85%;
 		float: right;
