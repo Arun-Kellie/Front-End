@@ -30,10 +30,10 @@ const Landing: FunctionComponent = () => {
 	return (
 		<div className="container pt-4">
 			<div className="row">
-				<div className="col-5">
+				<div className="col-5 d-none d-sm-block">
 					<SierraLeoneMap />
 				</div>
-				<div className="col-7">
+				<div className="col col-lg-7">
 					{!goToSignUpPage ? (
 						<LoginForm handleClickSignUp={handleClickSignUp} />
 					) : (
