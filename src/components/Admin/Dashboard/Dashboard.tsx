@@ -3,6 +3,7 @@ import { ChartData } from 'chart.js';
 import 'chartjs-plugin-datalabels';
 import { map, uniqueId } from 'lodash';
 import React, { FunctionComponent, useState } from 'react';
+import ScrollLock from 'react-scrolllock';
 
 import { Pie } from 'react-chartjs-2';
 // @ts-ignore
@@ -51,34 +52,38 @@ const AdminDashboard: FunctionComponent = () => {
 				<div id="outer-container">
 					<NavbarComponent />
 					<AdminSidePanel />
-					<div
-						className={`container-fluid page-content fade-in-up ${dashboardContext?.isMenuOpen && 'mainPanelContent'} `}
-						id="page-wrap"
-					>
-						<div className="row">
-							{map(dashboardConstants.cardNames, (cardName) => (
-								<div key={uniqueId()} className="col-12 col-sm-6 col-lg-4 mb-4">
-									<Card elevation={Elevation.TWO} style={{ backgroundColor: variables[cardName.backgroundColor] }}>
-										<H2 className="m-b-5 font-strong" style={{ color: variables[cardName.color] }}>
-											{cardName.count}
-										</H2>
-										<div className="m-b-5" style={{ color: variables[cardName.color] }}>
-											{cardName.name}
-										</div>
-									</Card>
+					<ScrollLock isActive={dashboardContext?.isMenuOpen}>
+						<div
+							className={`container-fluid page-content fade-in-up ${
+								dashboardContext?.isMenuOpen && 'mainPanelContent'
+							} `}
+							id="page-wrap"
+						>
+							<div className="row">
+								{map(dashboardConstants.cardNames, (cardName) => (
+									<div key={uniqueId()} className="col-12 col-sm-6 col-lg-4 mb-4">
+										<Card elevation={Elevation.TWO} style={{ backgroundColor: variables[cardName.backgroundColor] }}>
+											<H2 className="m-b-5 font-strong" style={{ color: variables[cardName.color] }}>
+												{cardName.count}
+											</H2>
+											<div className="m-b-5" style={{ color: variables[cardName.color] }}>
+												{cardName.name}
+											</div>
+										</Card>
+									</div>
+								))}
+							</div>
+							<div className="row">
+								<div className="col-12 col-sm-6 col-lg-8">
+									<Grid />
 								</div>
-							))}
-						</div>
-						<div className="row">
-							<div className="col-12 col-sm-6 col-lg-8">
-								<Grid />
-							</div>
-							<div className="col-12 col-sm-6 col-lg-4">
-								<H2 className="pb-0 card-header">Files</H2>
-								<Pie data={chartData} options={chartOptions} />
+								<div className="col-12 col-sm-6 col-lg-4">
+									<H2 className="pb-0 card-header">Files</H2>
+									<Pie data={chartData} options={chartOptions} />
+								</div>
 							</div>
 						</div>
-					</div>
+					</ScrollLock>
 				</div>
 			)}
 		</DashboardContextConsumer>
