@@ -36,6 +36,7 @@ const NavbarComponent: FunctionComponent = () => {
 									<MenuItem icon="power" text="Logout" />
 								</Menu>
 							}
+							onOpening={() => dashboardContext?.stateChangeHandler({ isOpen: false })}
 							position={Position.BOTTOM}
 						>
 							<Avatar name="Admin User" round={true} size={'40'} color={variables.greenColor} className="nav-avatar" />

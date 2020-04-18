@@ -6,7 +6,7 @@ export interface DashboardContextInterface {
 	stateChangeHandler: (newState: { isOpen: boolean }) => void;
 }
 
-const dashboardContext = React.createContext<DashboardContextInterface | null>(null);
+export const dashboardContext = React.createContext<DashboardContextInterface | null>(null);
 
 export const DashboardContextProvider = dashboardContext.Provider;
 
