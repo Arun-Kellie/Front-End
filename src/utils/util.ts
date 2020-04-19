@@ -40,7 +40,7 @@ export const chartOptions: ChartOptions = {
 	responsive: true,
 	plugins: {
 		datalabels: {
-			color: 'white',
+			color: variables.whiteColor,
 		},
 	},
 };

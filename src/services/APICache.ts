@@ -28,7 +28,7 @@ class APICache {
 	private counter = 0;
 	private cache = new Map<string, CacheRecord>();
 	private subscriptions = new Map<number, InternalSubscription>();
-	private loader: Loader;
+	private readonly loader: Loader;
 
 	constructor(loader: Loader) {
 		this.loader = loader;
