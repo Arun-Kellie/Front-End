@@ -64,3 +64,5 @@ export const lightenDarkenColor = (color: string, percent: number) => {
 
 	return '#' + RR + GG + BB;
 };
+
+export const minDeskTopWidth: number = 768;

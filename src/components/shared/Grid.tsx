@@ -1,10 +1,12 @@
+import { Button, Collapse, IResizeEntry, ResizeSensor } from '@blueprintjs/core';
 import moment from 'moment';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import filterFactory, { dateFilter, textFilter } from 'react-bootstrap-table2-filter';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 // @ts-ignore
 import variables from '../../index.scss';
+import { minDeskTopWidth } from '../../utils/util';
 
 const dateFormatter = (cell: string) => {
 	return <span>{moment(cell).format('MM/DD/YYYY h:mm:ss a').toString()}</span>;
@@ -661,7 +663,7 @@ const paginationOptions = {
 	// alwaysShowAllBtns: true, // Always show next and previous button
 	// withFirstAndLast: false, // Hide the going to First and Last page button
 	// hideSizePerPage: true, // Hide the sizePerPage dropdown always
-	// hidePageListOnlyOnePage: true, // Hide the pagination list when only one page
+	hidePageListOnlyOnePage: true, // Hide the pagination list when only one page
 	firstPageText: 'First',
 	prePageText: 'Back',
 	nextPageText: 'Next',
@@ -689,7 +691,20 @@ const paginationOptions = {
 };
 
 const Grid: FunctionComponent = () => {
-	return (
+	const [isDesktop, setIsDesktop] = useState<boolean>(false);
+	const [showCollapseContent, setCollapse] = useState<boolean>(false);
+
+	const handleResize = (entries: IResizeEntry[]) => {
+		entries.map((e) => {
+			if (e.contentRect.width > minDeskTopWidth) {
+				setIsDesktop(true);
+			} else {
+				setIsDesktop(false);
+			}
+		});
+	};
+
+	const renderGrid = () => (
 		<BootstrapTable
 			bootstrap4
 			keyField="id"
@@ -699,6 +714,25 @@ const Grid: FunctionComponent = () => {
 			filterPosition="top"
 			pagination={paginationFactory(paginationOptions)}
 		/>
+	);
+
+	return (
+		<>
+			{!isDesktop && (
+				<Button fill onClick={() => setCollapse(!showCollapseContent)}>
+					{showCollapseContent ? 'Hide' : 'Show'} table
+				</Button>
+			)}
+			<ResizeSensor onResize={handleResize}>
+				{!isDesktop ? (
+					<Collapse isOpen={showCollapseContent} keepChildrenMounted className="pt-2">
+						{renderGrid()}
+					</Collapse>
+				) : (
+					renderGrid()
+				)}
+			</ResizeSensor>
+		</>
 	);
 };
 
