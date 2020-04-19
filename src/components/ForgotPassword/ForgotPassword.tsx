@@ -1,4 +1,5 @@
 import { Button, Callout, Card, Elevation, FormGroup, H4, InputGroup, Intent } from '@blueprintjs/core';
+import { includes, map } from 'lodash';
 import React, { FunctionComponent, useState } from 'react';
 import { Redirect } from 'react-router';
 import AppToaster from '../../utils/AppToaster';
@@ -13,7 +14,12 @@ const ForgotPassword: FunctionComponent = () => {
 	const handleReset = () => {
 		if (!username) {
 			setIsInvalidLoginInfo(true);
-		} else if (username !== userDetails.name) {
+		} else if (
+			!includes(
+				map(userDetails, (user) => user.name),
+				username
+			)
+		) {
 			AppToaster.show({ message: 'Enter a valid user name or password' });
 		} else {
 			AppToaster.show({ message: 'Email sent to reset password' });

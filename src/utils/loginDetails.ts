@@ -1,4 +1,10 @@
-export const userDetails = {
-	name: 'test',
-	password: 'password',
-};
+export const userDetails: { name: string; password: string }[] = [
+	{
+		name: 'test',
+		password: 'password',
+	},
+	{
+		name: 'testuser',
+		password: 'password',
+	},
+];

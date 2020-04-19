@@ -1,9 +1,8 @@
 import { Button, Callout, Card, Elevation, FormGroup, InputGroup, Intent, Tooltip } from '@blueprintjs/core';
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 
 import { Redirect } from 'react-router-dom';
 import { userIcon } from '../../utils/IconsComponent';
-import { userDetails } from '../../utils/loginDetails';
 
 interface LoginFormProps {
 	handleClickSignUp: (e: boolean) => void;
@@ -13,11 +12,26 @@ const LoginForm: FunctionComponent<LoginFormProps> = (props: LoginFormProps) => 
 	const [username, setUsername] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
 	const [showPassword, setShowPassword] = useState<boolean>(false);
-	const [isLoggedin, setLoggedIn] = useState<boolean>(false);
+	const [isLoggedinAdmin, setLoggedInAdmin] = useState<boolean>(false);
+	const [isLoggedinUser, setLoggedInUser] = useState<boolean>(false);
 	const [isForgotPassword, setForgotPassword] = useState<boolean>(false);
 	const [isInvalidPassword, setIsInvalidPassword] = useState<boolean>(false);
 	const [isInvalidUsername, setIsInvalidUsername] = useState<boolean>(false);
 	const [isInvalidLoginInfo, setIsInvalidLoginInfo] = useState<boolean>(false);
+	const [isCapsLockEnabled, setCapsLockEnabled] = useState<boolean>(false);
+
+	useEffect(() => {
+		document.addEventListener('keyup', (event) => {
+			/**
+			 * If "caps lock" is pressed, display the warning text
+			 */
+			if (event.getModifierState('CapsLock')) {
+				setCapsLockEnabled(true);
+			} else {
+				setCapsLockEnabled(false);
+			}
+		});
+	}, []);
 
 	const handleLockClick = () => setShowPassword(!showPassword);
 
@@ -53,8 +67,15 @@ const LoginForm: FunctionComponent<LoginFormProps> = (props: LoginFormProps) => 
 		} else {
 			setIsInvalidPassword(false);
 		}
-		if (username === userDetails.name && password === userDetails.password) {
-			setLoggedIn(true);
+		if (username === 'test' && password === 'password') {
+			setLoggedInAdmin(true);
+			setIsInvalidLoginInfo(false);
+		} else {
+			setIsInvalidLoginInfo(true);
+		}
+
+		if (username === 'testuser' && password === 'password') {
+			setLoggedInUser(true);
 			setIsInvalidLoginInfo(false);
 		} else {
 			setIsInvalidLoginInfo(true);
@@ -64,8 +85,12 @@ const LoginForm: FunctionComponent<LoginFormProps> = (props: LoginFormProps) => 
 	if (isForgotPassword) {
 		return <Redirect push to="/forgot" />;
 	}
-	if (isLoggedin) {
+	if (isLoggedinAdmin) {
 		return <Redirect push to="/admin" />;
+	}
+
+	if (isLoggedinUser) {
+		return <Redirect push to="/userDashboard" />;
 	}
 	return (
 		<div className="container">
@@ -82,7 +107,10 @@ const LoginForm: FunctionComponent<LoginFormProps> = (props: LoginFormProps) => 
 								onChange={(e: any) => setUsername(e.currentTarget.value)}
 							/>
 						</FormGroup>
-						<FormGroup label="Password">
+						<FormGroup
+							label="Password"
+							helperText={isCapsLockEnabled && <p style={{ color: '#A82A2A' }}>Caps Lock is enabled.</p>}
+						>
 							<InputGroup
 								placeholder="Enter your password"
 								rightElement={lockButton}
