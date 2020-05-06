@@ -16,7 +16,7 @@ const LandingContextComponent = () => (
 	</UserContextProvider>
 );
 
-const Landing: FunctionComponent = () => {
+const Landing: FunctionComponent = (props: any) => {
 	const [goToSignUpPage, setToSignUpPage] = useState<boolean>(false);
 
 	const handleClickSignUp = (e: boolean) => {

@@ -1,16 +1,25 @@
 import { FocusStyleManager } from '@blueprintjs/core';
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App/App';
+import './i18n';
 import './index.scss';
+import logo from './logo.svg';
 import * as serviceWorker from './serviceWorker';
+
+const Loader = () => (
+	<div className="App">
+		<img src={logo} className="App-logo" alt="logo" />
+		<div>loading...</div>
+	</div>
+);
 
 FocusStyleManager.onlyShowFocusOnTabs();
 
 ReactDOM.render(
-	<React.StrictMode>
+	<Suspense fallback={<Loader />}>
 		<App />
-	</React.StrictMode>,
+	</Suspense>,
 	document.getElementById('root')
 );
 

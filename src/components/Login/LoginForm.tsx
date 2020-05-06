@@ -1,5 +1,6 @@
 import { Button, Callout, Card, Elevation, FormGroup, InputGroup, Intent, Tooltip } from '@blueprintjs/core';
 import React, { FunctionComponent, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Redirect } from 'react-router-dom';
 import { userIcon } from '../../utils/IconsComponent';
@@ -9,6 +10,12 @@ interface LoginFormProps {
 }
 
 const LoginForm: FunctionComponent<LoginFormProps> = (props: LoginFormProps) => {
+	const { t, i18n } = useTranslation(['translation']);
+
+	const changeLanguage = (lng: string) => {
+		i18n.changeLanguage(lng);
+	};
+
 	const [username, setUsername] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
 	const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -92,9 +99,12 @@ const LoginForm: FunctionComponent<LoginFormProps> = (props: LoginFormProps) => 
 	if (isLoggedinUser) {
 		return <Redirect push to="/userDashboard" />;
 	}
+
 	return (
 		<div className="container">
 			<div className="justify-content-center row">
+				<button onClick={() => changeLanguage('de')}>{t('translation:de')}</button>
+				<button onClick={() => changeLanguage('en')}>{t('translation:en')}</button>
 				<Card elevation={Elevation.TWO}>
 					<div className="p-4 position-relative">
 						{isInvalidLoginInfo && <Callout intent={Intent.DANGER}>Username or password is incorrect.</Callout>}

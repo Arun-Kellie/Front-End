@@ -145,7 +145,7 @@ const SignUp: FunctionComponent<SignUpProps> = (props: SignUpProps) => {
 							<ControlGroup fill={true} vertical={false}>
 								<CountrySelect
 									items={countryCodes || []}
-									popoverProps={{ position: PopoverPosition.BOTTOM }}
+									popoverProps={{ position: PopoverPosition.BOTTOM_LEFT, minimal: true }}
 									onItemSelect={handleItemSelect}
 									activeItem={selectedCountry}
 									onActiveItemChange={setSelectedCountry}

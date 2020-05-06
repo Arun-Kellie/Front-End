@@ -1,12 +1,18 @@
 import { Alignment, Button, Classes, Menu, MenuDivider, MenuItem, Navbar, Popover, Position } from '@blueprintjs/core';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import Avatar from 'react-avatar';
+import { Redirect } from 'react-router';
 // @ts-ignore
 import variables from '../../index.scss';
 import { DashboardContextConsumer } from '../Admin/Dashboard/DashboardContext';
 import '../Navbar/navbar.scss';
 
 const UserDashboardNav: FunctionComponent = () => {
+	const [allDocuments, setAllDocuments] = useState<boolean>(false);
+
+	if (allDocuments) {
+		return <Redirect to="/allDocuments" />;
+	}
 	return (
 		<DashboardContextConsumer>
 			{(dashboardContext) => (
@@ -26,7 +32,7 @@ const UserDashboardNav: FunctionComponent = () => {
 							content={
 								<Menu className={Classes.ELEVATION_1}>
 									<MenuItem icon="updated" text="Recent Documents" />
-									<MenuItem icon="document" text="All Documents" />
+									<MenuItem icon="document" text="All Documents" onClick={() => setAllDocuments(true)} />
 									<MenuItem icon="new-text-box" text="New Document" />
 								</Menu>
 							}
